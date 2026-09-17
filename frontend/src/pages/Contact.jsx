@@ -37,17 +37,17 @@ export default function Contact() {
               <div className="mt-3 space-y-1.5 text-sm">
                 <p>
                   <strong className="font-medium">Phone:</strong>{" "}
-                  <a href="tel:+924235789000" className="hover:text-maroon transition-colors">+92 42 35789000</a>
+                  <a href="tel:+923352051007" className="hover:text-maroon transition-colors">+92 335 2051007</a>
                 </p>
                 <p>
                   <strong className="font-medium">WhatsApp:</strong>{" "}
                   <a
-                    href="https://wa.me/923008456789"
+                    href="https://wa.me/923352051007"
                     target="_blank"
                     rel="noreferrer"
                     className="hover:text-maroon underline underline-offset-4"
                   >
-                    +92 300 8456789 (Click to Chat)
+                    +92 335 2051007 (Click to Chat)
                   </a>
                 </p>
                 <p>

@@ -12,6 +12,7 @@ import Wishlist from "./pages/Wishlist";
 import Login from "./pages/Login";
 import Account from "./pages/Account";
 import Contact from "./pages/Contact";
+import WhatsAppWidget from "./components/WhatsAppWidget";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -21,7 +22,7 @@ function ScrollToTop() {
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative">
       <ScrollToTop />
       <AnnouncementBar />
       <Navbar />
@@ -42,6 +43,7 @@ export default function App() {
         </Routes>
       </main>
       <Footer />
+      <WhatsAppWidget />
     </div>
   );
 }

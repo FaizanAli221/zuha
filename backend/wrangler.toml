@@ -5,7 +5,7 @@ compatibility_date = "2024-09-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "zuha_db"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_id = "b534b5c7-febd-4849-a16c-b671f9368ce4"
 
 [vars]
 JWT_SECRET = "replace-this-with-a-real-secret-in-production"
