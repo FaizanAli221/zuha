@@ -1,0 +1,18 @@
+name = "zuha-api"
+main = "src/index.ts"
+compatibility_date = "2024-09-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "zuha_db"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+[vars]
+JWT_SECRET = "replace-this-with-a-real-secret-in-production"
+
+# Deploy steps:
+# 1. wrangler d1 create zuha_db
+# 2. paste the returned database_id above
+# 3. wrangler d1 execute zuha_db --file=./schema.sql --remote
+# 4. wrangler d1 execute zuha_db --file=./seed.sql --remote
+# 5. wrangler deploy

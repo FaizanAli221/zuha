@@ -1,0 +1,11 @@
+name = "zuha-storefront"
+pages_build_output_dir = "dist"
+
+# Deploying to Cloudflare Pages:
+# Option 1 (CLI):
+#   npm run build
+#   npx wrangler pages deploy dist
+#
+# Option 2 (GitHub / Cloudflare Dashboard):
+#   Build command: npm run build
+#   Build output directory: dist
