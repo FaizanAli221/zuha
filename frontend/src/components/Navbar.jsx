@@ -6,8 +6,9 @@ import { useAuth } from "../context/AuthContext";
 
 const links = [
   { to: "/", label: "Home" },
-  { to: "/women", label: "Women" },
-  { to: "/men", label: "Men" },
+  { to: "/women?category=unstitched-lawn", label: "Unstitched" },
+  { to: "/women?category=ready-to-wear", label: "Ready to Wear" },
+  { to: "/women?category=bridal-formals", label: "Bridal & Formals" },
   { to: "/collections", label: "Collections" },
   { to: "/new-arrivals", label: "New Arrivals" },
   { to: "/best-sellers", label: "Best Sellers" },
