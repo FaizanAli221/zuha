@@ -7,28 +7,46 @@ export default function Shop({ gender, filter, title }) {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [params] = useSearchParams();
+  const [params, setParams] = useSearchParams();
+
   const categoryFilter = params.get("category") || "";
   const search = params.get("search") || "";
-  const [activeCategory, setActiveCategory] = useState(categoryFilter);
 
   useEffect(() => {
     getCategories().then(setCategories);
   }, []);
 
   useEffect(() => {
+    let isMounted = true;
     setLoading(true);
     const filters = {};
     if (gender) filters.gender = gender;
     if (filter === "new_arrival") filters.new_arrival = 1;
     if (filter === "best_seller") filters.best_seller = 1;
-    if (activeCategory) filters.category = activeCategory;
+    if (categoryFilter) filters.category = categoryFilter;
     if (search) filters.search = search;
+
     getProducts(filters).then((p) => {
-      setProducts(p);
-      setLoading(false);
+      if (isMounted) {
+        setProducts(p || []);
+        setLoading(false);
+      }
     });
-  }, [gender, filter, activeCategory, search]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [gender, filter, categoryFilter, search]);
+
+  function handleCategoryClick(slug) {
+    const newParams = new URLSearchParams(params);
+    if (slug) {
+      newParams.set("category", slug);
+    } else {
+      newParams.delete("category");
+    }
+    setParams(newParams);
+  }
 
   const pageTitle = title || (gender === "women" ? "Women" : gender === "men" ? "Men" : "Shop");
 
@@ -41,16 +59,16 @@ export default function Shop({ gender, filter, title }) {
 
       <div className="flex gap-2 overflow-x-auto pb-4 mb-6 scroll-row">
         <button
-          onClick={() => setActiveCategory("")}
-          className={`px-4 py-1.5 text-xs tracking-wide border whitespace-nowrap ${!activeCategory ? "bg-ink text-ivory border-ink" : "border-line text-ink/60"}`}
+          onClick={() => handleCategoryClick("")}
+          className={`px-4 py-1.5 text-xs tracking-wide border whitespace-nowrap ${!categoryFilter ? "bg-ink text-ivory border-ink" : "border-line text-ink/60"}`}
         >
           All
         </button>
         {categories.map((c) => (
           <button
             key={c.slug}
-            onClick={() => setActiveCategory(c.slug)}
-            className={`px-4 py-1.5 text-xs tracking-wide border whitespace-nowrap ${activeCategory === c.slug ? "bg-ink text-ivory border-ink" : "border-line text-ink/60"}`}
+            onClick={() => handleCategoryClick(c.slug)}
+            className={`px-4 py-1.5 text-xs tracking-wide border whitespace-nowrap ${categoryFilter === c.slug ? "bg-ink text-ivory border-ink" : "border-line text-ink/60"}`}
           >
             {c.name}
           </button>
