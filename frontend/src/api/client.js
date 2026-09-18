@@ -6,13 +6,18 @@ import { products as mockProducts, categories as mockCategories, collections as 
 
 const API_URL = import.meta.env.VITE_API_URL || "";
 
-async function tryFetch(path, options) {
+async function tryFetch(path, options = {}) {
   const url = API_URL ? `${API_URL}${path}` : path;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 2500);
+
   try {
     const res = await fetch(url, {
       ...options,
+      signal: controller.signal,
       headers: { "Content-Type": "application/json", ...(options?.headers || {}) },
     });
+    clearTimeout(timer);
     const data = await res.json().catch(() => null);
     if (!res.ok) {
       if (data && data.error) {
@@ -22,7 +27,14 @@ async function tryFetch(path, options) {
     }
     return data;
   } catch (err) {
-    if (err.message && !err.message.includes("fetch") && !err.message.includes("NetworkError") && !err.message.includes("Failed to fetch")) {
+    clearTimeout(timer);
+    if (
+      err.message &&
+      !err.message.includes("fetch") &&
+      !err.message.includes("NetworkError") &&
+      !err.message.includes("Failed to fetch") &&
+      !err.name?.includes("AbortError")
+    ) {
       throw err;
     }
     return null;
